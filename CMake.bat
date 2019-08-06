@@ -1,9 +1,9 @@
 :: To prevent all commands in a batch file (including the echo off command) from displaying on the screen
 @echo off
 
-:: remove the folder "build". 
+:: remove folder "build". 
 :: /S: removes all directories and files in the specified directory in addition to the directory itself.  Used to ::ove a directory tree.
-:: /Q: Quiet mode, do not ask if ok to ::ove a directory tree with /S
+:: /Q: Quiet mode, do not ask if ok to remove a directory tree with /S
 @RD /S /Q "build"
 
 mkdir build
