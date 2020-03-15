@@ -1,0 +1,53 @@
+message("********************************************************")
+message("Generating the build pipeline started...") # A message to print.
+message("********************************************************")
+cmake_minimum_required(VERSION 3.1.0)
+project(prog)
+
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC ON)
+
+#[[
+We have two variables, each representing a folder:
+1. ${CMAKE_CURRENT_SOURCE_DIR}
+2. ${CMAKE_CURRENT_BINARY_DIR}
+If we set CMAKE_INCLUDE_CURRENT_DIR to ON, the two above folders will be added
+to "include" path, being able to use the header files in these folders.
+]]
+
+
+if(CMAKE_VERSION VERSION_LESS "3.7.0")
+    #set(CMAKE_INCLUDE_CURRENT_DIR ON)
+endif()
+
+find_package(Qt5 COMPONENTS Widgets REQUIRED)
+
+
+# Define the binary executable file with all source files
+add_executable(prog 
+mainwindow.ui
+mainwindow.cpp
+main.cpp
+)
+
+target_link_libraries(prog Qt5::Widgets)
+
+
+project(testProject)
+#[[
+find_package(Qt5Test REQUIRED)
+
+enable_testing(true)
+
+# Tell Cmake to run moc when necessary:
+set(CMAKE_AUTOMOC ON)
+
+# As moc files are generated in the binary dir,
+# tell CMake to always look for includes there:
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+
+add_executable (testProject /test/testwindow.cpp)
+add_test(testProject testProject)
+target_link_libraries(testProject Qt5::Test)
+]]
