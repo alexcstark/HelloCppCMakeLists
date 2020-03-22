@@ -4,20 +4,29 @@
 # https://code.egym.de/how-to-use-modern-cmake-for-an-app-lib-project-3c2ee6018cde
 # https://www.dealii.org/9.1.1/users/cmakelists.html
 
+
+find_package(Qt5 COMPONENTS Widgets REQUIRED)
+
+# Tell CMake to run moc when necessary:
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC ON)
+
 #####################
 # WHAT IS THIS???
 #####################
-set(BINARY ${CMAKE_PROJECT_NAME})
+set(BINARY ${CMAKE_PROJECT_NAME}_window)
 set(SOURCES ${SOURCES})
 
 #####################
 # add_executable
 #####################
 # Create a target ( commands like add_library and add_executable create targets):
-add_executable(${BINARY}_run
+add_executable(${BINARY}
     main.cpp
-    formula.cpp
-    formula.h)
+    mainwindow.cpp
+    mainwindow.ui
+    mainwindow.h)
 # ExampleProject_run: is the name of two things:
 # 1. generated executable file(.exe)
 # 2. generated CMake target
@@ -28,20 +37,6 @@ add_executable(${BINARY}_run
 # In CMake, a "target" is executable or library file.
 
 #####################
-# add_library
+#
 #####################
-# Create a target ( commands like add_library and add_executable create targets):
-# We make a library with add_library.
-# Library type can be: STATIC/SHARED/MODULE
-add_library(${BINARY}_lib STATIC
-    main.cpp
-    formula.cpp
-    formula.h)
-
-# with add_library() we add the source files to the module named ${BINARY}_lib.
-# Each "module" gives origin to one "target".
-# If we add a .cpp file to several add_executable() calls, meaning if we create several "target"s,
-# the .cpp files must be compiled for each target separately. One way to evade this, to compile .cpp
-# files once and then to use the "module" or "object target" all the time, is using add_library().
-# After creating "module" using add_library(), we need to "link" the "object target", "object file", into the
-# executables.
+target_link_libraries(${BINARY} Qt5::Widgets)

@@ -10,8 +10,13 @@ project(ExampleProject
 
 set(CMAKE_CXX_STANDARD 14)
 
+# Where should the compiler search for include files? We add "/src" directory to the list of directories in which
+# compiler searches for includes.
 include_directories(src)
 
+# Regarding the directory of this CMakeLists.txt file, we add subdirectories to the build.
+# Each subdirectory has its CMakeLists.txt and its source codes.
 add_subdirectory(src)
+add_subdirectory(window)
 add_subdirectory(tst)
 add_subdirectory(lib/googletest)
