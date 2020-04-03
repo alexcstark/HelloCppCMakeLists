@@ -45,3 +45,5 @@ add_library(${BINARY}_lib STATIC
 # files once and then to use the "module" or "object target" all the time, is using add_library().
 # After creating "module" using add_library(), we need to "link" the "object target", "object file", into the
 # executables.
+# Here we create a library from source files. We compile the files into a library file. Thereafter, e.g. in tests,
+# we can use this library and we save compiling the files again.
